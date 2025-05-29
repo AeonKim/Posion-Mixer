@@ -191,7 +191,7 @@ export const useGameStore = create<GameStore>((set, get) => {
         
         const topColor = getTubeTopColor(fromIndex)
         const colorCount = getTubeTopColorCount(fromIndex)
-        const spaceInToTube = 6 - toTube.length // 튜브 길이를 6으로 증가
+        const spaceInToTube = 4 - toTube.length // 튜브 길이를 4로 변경
         const amountToPour = Math.min(colorCount, spaceInToTube)
         
         // 물 이동
@@ -212,8 +212,8 @@ export const useGameStore = create<GameStore>((set, get) => {
         // 새로운 튜브 상태로 완료 여부 확인
         const { isTubeComplete, isTubeEmpty } = get()
         const isComplete = newTubes.every((tube, index) => {
-          // 튜브가 완성되었는지 확인 (6개 모두 같은 색)
-          const isCompleted = tube.length === 6 && tube.every(color => color === tube[0])
+          // 튜브가 완성되었는지 확인 (4개 모두 같은 색)
+          const isCompleted = tube.length === 4 && tube.every(color => color === tube[0])
           // 튜브가 비어있는지 확인
           const isEmpty = tube.length === 0
           return isCompleted || isEmpty
@@ -221,7 +221,7 @@ export const useGameStore = create<GameStore>((set, get) => {
         
         console.log('Level completion check:', {
           tubes: newTubes.length,
-          completedTubes: newTubes.filter(tube => tube.length === 6 && tube.every(color => color === tube[0])).length,
+          completedTubes: newTubes.filter(tube => tube.length === 4 && tube.every(color => color === tube[0])).length,
           emptyTubes: newTubes.filter(tube => tube.length === 0).length,
           isComplete
         })
@@ -478,12 +478,12 @@ export const useGameStore = create<GameStore>((set, get) => {
       return count
     },
 
-    // 튜브 완성 확인 - 6개 길이로 변경
+    // 튜브 완성 확인 - 4개 길이로 변경
     isTubeComplete: (tubeIndex: number) => {
       const { tubes } = get()
       const tube = tubes[tubeIndex]
       
-      if (tube.length !== 6) return false
+      if (tube.length !== 4) return false
       
       const firstColor = tube[0]
       return tube.every(color => color === firstColor)
@@ -495,10 +495,10 @@ export const useGameStore = create<GameStore>((set, get) => {
       return tubes[tubeIndex].length === 0
     },
 
-    // 튜브 가득참 확인 - 6개 길이로 변경
+    // 튜브 가득참 확인 - 4개 길이로 변경
     isTubeFull: (tubeIndex: number) => {
       const { tubes } = get()
-      return tubes[tubeIndex].length === 6
+      return tubes[tubeIndex].length === 4
     },
 
     // 유효한 이동 찾기
@@ -521,15 +521,15 @@ export const generateLevel = (level: number, difficulty: Difficulty): Tube[] => 
   // 난이도별 색상 및 튜브 설정
   const levelConfig: Record<Difficulty, { colors: WaterColor[], tubeCount: number }> = {
     easy: { 
-      colors: ['lime', 'purple'], 
+      colors: ['lime', 'purple'], // 2개 색상
       tubeCount: 4 
     },
     medium: { 
-      colors: ['red', 'blue', 'green', 'yellow', 'hotpink', 'orange', 'purple', 'cyan', 'lime', 'neonsky'], 
-      tubeCount: 10 
+      colors: ['red', 'blue', 'green', 'yellow', 'hotpink', 'orange', 'purple', 'cyan'], // 8개 색상
+      tubeCount: 10
     },
     hard: { 
-      colors: ['red', 'blue', 'green', 'yellow', 'hotpink', 'orange', 'purple', 'cyan', 'lime', 'neonsky', 'neonpurple', 'indigo'], 
+      colors: ['red', 'blue', 'green', 'yellow', 'hotpink', 'orange', 'purple', 'cyan', 'lime', 'neonsky'], // 10개 색상
       tubeCount: 12 
     },
     extrahard: { 
@@ -541,10 +541,11 @@ export const generateLevel = (level: number, difficulty: Difficulty): Tube[] => 
   const config = levelConfig[difficulty]
   const colors = config.colors.slice(0, config.tubeCount - 2) // 빈 튜브 2개 제외
   
-  // 각 색상을 6개씩 생성 (튜브 길이 증가)
+  // 모든 난이도에서 4개 블럭 사용
+  const colorsPerTube = 4
   const allWaters: WaterColor[] = []
   colors.forEach(color => {
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < colorsPerTube; i++) {
       allWaters.push(color)
     }
   })
@@ -555,10 +556,10 @@ export const generateLevel = (level: number, difficulty: Difficulty): Tube[] => 
     [allWaters[i], allWaters[j]] = [allWaters[j], allWaters[i]]
   }
   
-  // 튜브에 분배 (각 튜브에 6개씩)
+  // 튜브에 분배 (각 튜브에 4개씩)
   const tubes: Tube[] = []
   for (let i = 0; i < colors.length; i++) {
-    tubes.push(allWaters.slice(i * 6, (i + 1) * 6))
+    tubes.push(allWaters.slice(i * colorsPerTube, (i + 1) * colorsPerTube))
   }
   
   // 빈 튜브 2개 추가

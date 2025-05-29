@@ -49,8 +49,8 @@ export default function Tube({
   isHintFrom,
   isHintTo
 }: TubeProps) {
-  // 빈 슬롯을 채우기 위해 6개 슬롯 생성 (길이 증가)
-  const slots = Array(6).fill(null).map((_, index) => colors[index] || null)
+  // 빈 슬롯을 채우기 위해 4개 슬롯 생성 (블럭 개수에 맞춤)
+  const slots = Array(4).fill(null).map((_, index) => colors[index] || null)
   
   // 물 붓기 시 음향 효과 재생 - 목적지 튜브에서만 재생
   useEffect(() => {

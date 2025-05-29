@@ -136,7 +136,7 @@
 
   /* New long tube styles */
   .tube-long {
-    @apply relative w-16 h-52 bg-transparent rounded-b-lg cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-tube-float;
+    @apply relative w-16 h-40 bg-transparent rounded-b-lg cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-tube-float;
     border: 2px solid #9CA3AF;
     border-top: none;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -151,7 +151,7 @@
 
   /* New long liquid segment */
   .liquid-segment-long {
-    @apply w-full h-7 transition-all duration-500;
+    @apply w-full h-8 transition-all duration-500;
     border-radius: 0;
   }
 
