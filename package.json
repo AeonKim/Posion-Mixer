@@ -1,0 +1,45 @@
+{
+  "name": "potion-mixer",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "🧪 Potion Mixer - Magical Water Sort Puzzle Game built with React, TypeScript, and Tailwind CSS",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "clean": "rm -rf dist node_modules && npm install"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.8",
+    "@types/node": "^22.15.24",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^7.6.1",
+    "zustand": "^5.0.5"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0"
+  },
+  "keywords": [
+    "game",
+    "puzzle",
+    "potion-mixer",
+    "water-sort", 
+    "react",
+    "typescript",
+    "magic",
+    "alchemy"
+  ],
+  "author": "Gpters Wizard & Co.",
+  "license": "MIT",
+  "homepage": "https://github.com/gpters/potion-mixer"
+}
